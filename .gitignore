@@ -1,0 +1,18 @@
+# Fichiers vidéo volumineux
+*.mp4
+*.avi
+*.mkv
+*.mov
+
+# Environnement virtuel Python
+venv/
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+
+# Config éditeurs/IDE
+.vscode/
+.idea/
+
+
