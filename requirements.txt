@@ -2,4 +2,10 @@ numpy
 Pillow
 matplotlib
 requests
-opencv-python 
+opencv-python
+moviepy
+pandas
+colorthief
+beautifulsoup4
+scipy
+pyyaml 
