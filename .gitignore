@@ -15,4 +15,8 @@ __pycache__/
 .vscode/
 .idea/
 
+# Pipeline cache et output
+daily_pipeline/.cache/
+output/
+
 
