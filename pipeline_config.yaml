@@ -1,0 +1,82 @@
+# ============================================================
+# Configuration du pipeline de generation video
+# ============================================================
+# Utilisation:
+#   python pipeline.py --type blue_lock
+#   python pipeline.py --type fire_force
+#   python pipeline.py --type one_piece
+#   python pipeline.py --type anime_season --csv animes_spring_2025.csv --output spring_2025.mp4
+#   python pipeline.py --all
+# ============================================================
+
+# Configuration video par defaut (peut etre surchargee par type)
+defaults:
+  width: 1920
+  height: 1080
+  separator_width: 8
+  fps: 60
+  scroll_duration: 3.6
+  intro_duration: 1.0
+  pause_duration: 0.5
+  initial_delay: 0.2
+  bitrate: "4000k"
+  preset: "medium"
+  threads: 4
+
+# Pipelines disponibles
+pipelines:
+
+  blue_lock:
+    description: "Blue Lock - Cartes de joueurs avec valeurs de transfert"
+    csv: "date.csv"
+    card_template: "blue_lock"
+    output_file: "presentation_blue_lock.mp4"
+    # Pas de step de download images (URLs dans le CSV)
+    steps:
+      - generate_video
+
+  fire_force:
+    description: "Fire Force - Personnages avec effets de feu"
+    csv: "characters_fire_force.csv"
+    card_template: "fire_force"
+    output_file: "fire_force_presentation.mp4"
+    fps: 30
+    steps:
+      - download_images    # scrape images depuis le wiki
+      - generate_video
+
+  one_piece:
+    description: "One Piece - Affiches Wanted avec primes"
+    csv: "one_piece_bounties.csv"
+    card_template: "wanted_poster"
+    output_file: "wanted_poster_video.mp4"
+    sort_by: "value"
+    sort_ascending: true
+    wanted_poster_path: "img/avis de recherhche 2.jpg"
+    bitrate: "8000k"
+    steps:
+      - generate_video
+
+  anime_spring_2025:
+    description: "Anime Printemps 2025"
+    csv: "animes_spring_2025.csv"
+    card_template: "anime_season"
+    output_file: "presentation_spring_2025.mp4"
+    steps:
+      - fetch_mal_data      # recup via API MAL
+      - generate_video
+    mal_config:
+      season: "spring"
+      year: 2025
+
+  anime_summer_2025:
+    description: "Anime Ete 2025"
+    csv: "animes_summer_2025.csv"
+    card_template: "anime_season"
+    output_file: "presentation_summer_2025.mp4"
+    steps:
+      - fetch_mal_data
+      - generate_video
+    mal_config:
+      season: "summer"
+      year: 2025
